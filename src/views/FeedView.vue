@@ -3,5 +3,8 @@ import FeedPage from '@/components/FeedPage.vue'
 </script>
 
 <template>
-  <FeedPage />
+  <Suspense>
+    <template #fallback>Loading...</template>
+    <FeedPage />
+  </Suspense>
 </template>
