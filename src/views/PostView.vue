@@ -26,9 +26,7 @@ function likePost() {
 <template>
   <p>Post {{ route.params.id }}</p>
   <p>Username</p>
-  <p>Title</p>
-  <img alt="pet" />
-  <p>Caption</p>
+  <p>post</p>
   <p>Likes: {{ state.numOfLikes }}</p>
   <button @click="likePost">like</button>
 </template>

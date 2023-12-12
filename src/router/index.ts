@@ -25,6 +25,10 @@ const router = createRouter({
     {
       path: '/upload',
       component: () => import('@/views/UploadView.vue')
+    },
+    {
+      path: '/authenticate',
+      component: () => import('@/views/AuthView.vue')
     }
   ]
 })

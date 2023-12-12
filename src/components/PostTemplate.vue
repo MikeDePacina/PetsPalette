@@ -9,15 +9,14 @@ const props = defineProps({
 <template>
   <div class="frame">
     <header>{{ props.uploadItem.name }}</header>
-    <h2>{{ props.uploadItem.title }}</h2>
-    <img :src="props.uploadItem.url" />
-    <RouterLink to="/post/2">Go to page </RouterLink>
-    <!-- <div class="stats-container">
-      <p>Likes:</p>
-      <button >like</button>
-    </div>
-    <div class="comment-section"></div> -->
+    <p>{{ props.uploadItem.body }}</p>
+    <router-link :to="`/post/${props.uploadItem.id}`">Go to page </router-link>
   </div>
 </template>
 
-<style></style>
+<style>
+.frame {
+  border-style: solid;
+  padding: 0.5em;
+}
+</style>
