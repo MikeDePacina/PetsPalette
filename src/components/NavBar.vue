@@ -1,6 +1,6 @@
 <script setup>
 import { useAuthStore } from '@/AuthStore'
-import config from 'C:/Users/miked/PetsPalette/config.json'
+import config from '../../config.json'
 const auth = useAuthStore()
 const loginURL = `${config.LOGIN_URL}response_type=code&client_id=${config.CLIENT_ID}&redirect_uri=${config.REDIRECT_URI}&scope=email`
 const logoutURL = `${config.LOGOUT_URL}client_id=${config.CLIENT_ID}&logout_uri=${config.LOGOUT_REDIRECT}`
