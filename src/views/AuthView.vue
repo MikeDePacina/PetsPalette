@@ -2,8 +2,8 @@
 import { useRoute, useRouter } from 'vue-router'
 import { onBeforeMount } from 'vue'
 import axios from 'axios'
-import config from 'C:/Users/miked/PetsPalette/config.json'
-import { useAuthStore } from 'C:/Users/miked/PetsPalette/src/AuthStore.js'
+import config from '../../config.json'
+import { useAuthStore } from '@/AuthStore'
 import { jwtDecode } from 'jwt-decode'
 const route = useRoute()
 const router = useRouter()

@@ -2,7 +2,7 @@
 import PostTemplate from './PostTemplate.vue'
 import { reactive } from 'vue'
 import { useAuthStore } from '@/AuthStore'
-import config from 'C:/Users/miked/PetsPalette/config.json'
+import config from '../../config.json'
 import axios from 'axios'
 import { ref } from 'vue'
 
