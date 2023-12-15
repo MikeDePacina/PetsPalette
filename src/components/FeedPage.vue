@@ -1,40 +1,47 @@
 <script setup>
 import PostTemplate from './PostTemplate.vue'
 import { reactive } from 'vue'
+import { useAuthStore } from '@/AuthStore'
+import config from 'C:/Users/miked/PetsPalette/config.json'
+import axios from 'axios'
+import { ref } from 'vue'
 
-async function getPosts() {
+const auth = useAuthStore()
+
+async function setUsername() {
   try {
-    // Assuming you have functions to fetch data from both APIs
-    const userApiResponse = await fetchUserApi()
-    const postApiResponse = await fetchPostApi()
-
-    // Assuming the responses are arrays of objects
-    // const users = userApiResponse
-    const posts = postApiResponse.slice(0, 10) // Cut the response to the first 10 items
-
-    // Combine data from both APIs
-    const combinedData = posts.map(({ id, body }, index) => ({
-      id: id,
-      name: userApiResponse[index].name, // Assuming the user data has a 'name' property
-      body: body
-    }))
-
-    console.log(combinedData)
-    return combinedData
+    auth.username = username.value
+    const body = {
+      cognitoUsername: `${auth.cognitoUsername}`,
+      chosenUsername: `${auth.username}`
+    }
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth.token}`
+    }
+    const response = await axios.post(config.USER_API, body, { headers })
+    console.log(response.data)
   } catch (error) {
-    console.error('Error fetching data:', error)
+    console.log(error)
+  }
+}
+const username = ref('')
+async function getPosts(){
+  try {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth.token}`
+    }
+    const response = await axios.get(config.POST_API, { headers })
+    if(response.data){
+      console.log(response.data)
+      return response.data.posts
+    }
+  } catch (error) {
+    console.log(error)
   }
 }
 
-async function fetchUserApi() {
-  const response = await fetch('https://jsonplaceholder.typicode.com/users')
-  return response.json()
-}
-
-async function fetchPostApi() {
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-  return response.json()
-}
 
 const data = reactive({
   uploadList: []
@@ -44,5 +51,11 @@ data.uploadList = await getPosts()
 </script>
 
 <template>
-  <PostTemplate v-for="item in data.uploadList" :upload-item="item" v-bind:key="item.name" />
+  <div v-if="auth.username == ''">
+    <label>First time user, pick a username: </label>
+    <input v-model="username" type="text" max="255" />
+    <button @click="setUsername">Choose username</button>
+  </div>
+
+  <PostTemplate v-else v-for="item in data.uploadList" :upload-item="item" v-bind:key="item.id" />
 </template>

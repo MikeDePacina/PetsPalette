@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import { useAuthStore } from '@/AuthStore'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -16,21 +18,30 @@ const router = createRouter({
     },
     {
       path: '/feed',
-      component: () => import('@/views/FeedView.vue')
-    },
-    {
-      path: '/post/:id',
-      component: () => import('@/views/PostView.vue')
+      component: () => import('@/views/FeedView.vue'),
+      meta: { requiresAuth: true }
     },
     {
       path: '/upload',
-      component: () => import('@/views/UploadView.vue')
+      component: () => import('@/views/UploadView.vue'),
+      meta: { requiresAuth: true }
     },
     {
       path: '/authenticate',
       component: () => import('@/views/AuthView.vue')
+    },
+    {
+      path: '/logout',
+      component: () => import('@/views/LogoutView.vue')
     }
   ]
 })
-
+router.beforeEach((to, from) => {
+  const auth = useAuthStore()
+  if (to.meta.requiresAuth && !auth.isAuthenticated)
+    //if not authenticated return to home page
+    return {
+      path: '/'
+    }
+})
 export default router
