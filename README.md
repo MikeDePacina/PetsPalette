@@ -8,6 +8,7 @@ A twitter like app where people must sign in via AWS Cognito to like and upload 
 - NGINX to serve as a reverse proxy to redirect EC2 instances IP port 443 and 80 to 5173 for Vue app and 8080 for Spring Boot API
 - Certbot to simplify and automate assigning SSL cert to domain using let's encrypt
 
+API repo [https://github.com/MikeDePacina/PetsPalette-API]
 
 ### Architecture in AWS
 
@@ -21,3 +22,6 @@ A twitter like app where people must sign in via AWS Cognito to like and upload 
 ### SQS and Lambda Integration
 
 ![sqs and lambda integration](https://github.com/MikeDePacina/PetsPalette/assets/67354407/7046689f-1bb4-4f55-93ae-07ef8486a267)
+
+
+
